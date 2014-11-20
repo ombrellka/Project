@@ -1,8 +1,11 @@
 
-<!DOCTYPE html PUBLIC "-//IETF//DTD HTML 2.0//EN">
+ <!DOCTYPE html PUBLIC "-//IETF//DTD HTML 2.0//EN">
 <html>
 	<head>
 		<title> Project by Nikitina Polina </title>
+		
+		<link rel="stylesheet" type="text/css" href="style.css">
+		
 		<meta charset = "utf-8">
 		<script src = "http://d3js.org/d3.v3.min.js" charset="utf-8"> </script>
 		<style>
@@ -35,14 +38,25 @@
 			<br>
 			<input type = "button" id = "parse_but" onclick = "Parse()" value = "Parse">
 			<input type = "button" id = "reset_but" onclick = "Clear()" value = "Clear">
+		</span>
+		
+		<span style = "position: absolute; left: 1%; top: 24%">
 			<input type = "button" id = "history_but" onclick = "History()" value = "Save input">
 			<a href = "http://ombrellka.1gb.ru/showhist.php" > Input history </a>
 		</span>
 		
-		<span style = "position: absolute; left: 1%; top: 26%">
+		<span style = "position: absolute; left: 1%; top: 29%">
+			<input type = "button" id = "history_tex_but" onclick = "Tex()" value = "LaTeX"> 
+			<a href = "http://ombrellka.1gb.ru/hist.tex" > Input history LaTeX </a> 
+			<br>
+			<br>
+			<input type = "button" id = "history_pdf_but" onclick = "Pdf()" value = "PDF"> 
+		</span>
+		
+		<span style = "position: absolute; left: 1%; top: 37%">
 			<p id = "output" style = "font-family: Lucida Console, monospace"> </p> 
 		</span>
-				
+
 		<script language = "javascript" type = "text/javascript">
 		
 		function Clear() {
@@ -58,8 +72,7 @@
 			  .remove();
 			document.getElementById("output").innerHTML = '';
 			var text = document.getElementById("field").value;
-			var text2 = text;
-			var text3 = '';
+			var text2 = document.getElementById("field").value;
 			var parsingOK = true;
 			var brackets = 0;
 	 		
@@ -363,17 +376,23 @@
 				d3.select("svg")
 				  .remove();
 			}
-			
-			
-			$f = fopen('history.txt','a');
-			fwrite($f, $my_request, "\n");
-			fclose($f);
 		}
 		
 		function History() {
-			link = 'http://ombrellka.1gb.ru/hist.php?request= " '+ document.getElementById("field").value +' " ';
+			link = 'http://ombrellka.1gb.ru/hist.php?reqtxt='+document.getElementById("field").value;
 			window.location.href = link;
 		}
+		
+		function Tex() {
+			link = 'http://ombrellka.1gb.ru/hist_tex.php';
+			window.location.href = link;
+		}
+		
+		function Pdf() {
+			link = 'http://ombrellka.1gb.ru/hist_pdf.php';
+			window.location.href = link;
+		}
+		
 		</script>
 	</body>
 </html>
